@@ -28,34 +28,11 @@ local protectedMessagebox = function(body, title, id)
 	end;
 	return output;
 end;
-local protectedLoad = function(url)
-	local success, response = pcall(request, {Url=url; Method='GET';});
-	if (not success) then
-		protectedMessagebox(`protectedLoad failed(1) - request error\n\nurl: {url}`, `ecstasy.wtf [{executor}]`, 48);
-		task.wait(9e9);
-		return;
-	elseif (type(response) ~= 'table' or type(response.Body) ~= 'string' or response.StatusCode ~= 200) then
-            protectedMessagebox(`protectedLoad failed(2) - bad response\n\nurl: {url}`, `ecstasy.wtf [{executor}]`, 48);
-		task.wait(9e9);
-		return;
-      end;
-      local loader = loadstring(response.Body);
-      if (not loader) then
-            protectedMessagebox(`protectedLoad failed(3) - syntax error\n\nurl: {url}`, `ecstasy.wtf [{executor}]`, 48);
-		task.wait(9e9);
-		return;
-      end;
-      return loader();
-end;
 
 if (type(loadstring) ~= 'function') then
 	return protectedMessagebox(`missing alias ( loadstring ) - unsupported executor`, `ecstasy.wtf [{executor}]`, 48);
 elseif (type(request) ~= 'function') then
 	return protectedMessagebox(`missing alias ( request ) - unsupported executor`, `ecstasy.wtf [{executor}]`, 48);
 elseif (not Drawing) then
-	protectedLoad('https://raw.githubusercontent.com/hadsg1/extaze/refs/heads/main/main.lua');
+	protectedMessagebox(`This Game is Unsupported!\n\nIf you believe this is incorrect, please open a ticket in our discord! - https://discord.gg/vvuzAV46`, `ecstasy.wtf [{executor}]`, 48);
 end;
-
-local dir = 'https://raw.githubusercontent.com/hadsg1/extaze/refs/heads/main/';
-
-local load 
