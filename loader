@@ -53,11 +53,10 @@ if (type(loadstring) ~= 'function') then
 elseif (type(request) ~= 'function') then
 	return protectedMessagebox(`missing alias ( request ) - unsupported executor`, `ecstasy.wtf [{executor}]`, 48);
 elseif (not Drawing) then
-	protectedLoad('https://raw.githubusercontent.com/hadsg1/script/refs/heads/main/extazi/drawingfix.lua');
+	protectedLoad('https://raw.githubusercontent.com/hadsg1/extaze/refs/heads/main/main.lua');
 end;
 
-local placeid = game.PlaceId;
-local dir = 'https://raw.githubusercontent.com/hadsg1/extazi/refs/heads/main/main.lua';
+local dir = 'https://raw.githubusercontent.com/hadsg1/extaze/refs/heads/main/';
 
 local statuslist = {};
 
@@ -81,7 +80,4 @@ local load = function(name)
 	protectedLoad(`{dir}{name}/main.lua`);
 end;
 
-if (placeid == 13800717766 or placeid == 15479377118 or placeid == 16849012343) then
-    return load('fallensurvival');
-end;
-protectedMessagebox(`This Game is Unsupported!\n\nIf you believe this is incorrect, please open a ticket in our discord! - https://discord.gg/vvuzAV46`, `ecstasy.wtf [{placeid}]`, 48);
+load('fallensurvival');
