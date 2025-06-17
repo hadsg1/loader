@@ -52,31 +52,3 @@ elseif (not Drawing) then
 	end;
 	loader();
 end;
-
-local dir = 'https://raw.githubusercontent.com/hadsg1/extaze/refs/heads/main/';
-
-local statuslist = {};
-
-statuslist.fallensurvival = {
-	name 		= 'Fallen Survival';
-	status 		= 'Undetected';
-	support 	= {'Wave'; 'AWP'; 'Hydrogen'; 'Seliware'; };
-};
-
-local success, response = pcall(request, {Url=`{dir}fallensurvival/main.lua`; Method='GET';});
-if (not success) then
-	protectedMessagebox(`failed(1) - request error\n\nurl: {dir}fallensurvival/main.lua`, `ecstasy.wtf [{executor}]`, 48);
-	task.wait(9e9);
-	return;
-elseif (type(response) ~= 'table' or type(response.Body) ~= 'string' or response.StatusCode ~= 200) then
-	protectedMessagebox(`failed(2) - bad response\n\nurl: {dir}fallensurvival/main.lua`, `ecstasy.wtf [{executor}]`, 48);
-	task.wait(9e9);
-	return;
-end;
-local loader = loadstring(response.Body);
-if (not loader) then
-	protectedMessagebox(`failed(3) - syntax error\n\nurl: {dir}fallensurvival/main.lua`, `ecstasy.wtf [{executor}]`, 48);
-	task.wait(9e9);
-	return;
-end;
-loader();
