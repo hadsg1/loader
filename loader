@@ -57,7 +57,7 @@ elseif (not Drawing) then
 end;
 
 local placeid = game.PlaceId;
-local dir = 'https://raw.githubusercontent.com/hadsg1/script/refs/heads/main/extazi/';
+local dir = 'https://raw.githubusercontent.com/hadsg1/extazi/refs/heads/main/main.lua';
 
 local statuslist = {};
 
