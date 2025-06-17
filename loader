@@ -58,26 +58,4 @@ end;
 
 local dir = 'https://raw.githubusercontent.com/hadsg1/extaze/refs/heads/main/';
 
-local statuslist = {};
-
-statuslist.fallensurvival = {
-	name 		= 'Fallen Survival';
-	status 		= 'Undetected';
-	support 	= {'Wave'; 'AWP'; 'Hydrogen'; 'Seliware'; };
-};
-
-local load = function(name)
-	local game = statuslist[name];
-	if (game.status ~= 'Undetected' and protectedMessagebox(`{game.name} is Currently Marked as {game.status}!\n\nAre You Sure You Want to Continue?`, `ecstasy.wtf`, 52) ~= 6) then
-		return;
-	elseif (
-		game.support and 
-		not table.find(game.support, executor) and 
-		protectedMessagebox(`Unsupported Executor!\n\n{executor} is not Officially Supported for {game.name}\nand may have Undefined Behaviour or even result in a BAN!\n\nAre You Sure You Want to Continue?`, `ecstasy.wtf [{executor}]`, 52) ~= 6
-	) then
-		return;
-	end;
-	protectedLoad(`{dir}{name}/main.lua`);
-end;
-
-load('fallensurvival');
+local load 
