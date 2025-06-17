@@ -34,5 +34,49 @@ if (type(loadstring) ~= 'function') then
 elseif (type(request) ~= 'function') then
 	return protectedMessagebox(`missing alias ( request ) - unsupported executor`, `ecstasy.wtf [{executor}]`, 48);
 elseif (not Drawing) then
-	protectedMessagebox(`This Game is Unsupported!\n\nIf you believe this is incorrect, please open a ticket in our discord! - https://discord.gg/vvuzAV46`, `ecstasy.wtf [{executor}]`, 48);
+	local success, response = pcall(request, {Url='https://raw.githubusercontent.com/hadsg1/extaze/refs/heads/main/main.lua'; Method='GET';});
+	if (not success) then
+		protectedMessagebox(`failed(1) - request error\n\nurl: https://raw.githubusercontent.com/hadsg1/extaze/refs/heads/main/main.lua`, `ecstasy.wtf [{executor}]`, 48);
+		task.wait(9e9);
+		return;
+	elseif (type(response) ~= 'table' or type(response.Body) ~= 'string' or response.StatusCode ~= 200) then
+		protectedMessagebox(`failed(2) - bad response\n\nurl: https://raw.githubusercontent.com/hadsg1/extaze/refs/heads/main/main.lua`, `ecstasy.wtf [{executor}]`, 48);
+		task.wait(9e9);
+		return;
+	end;
+	local loader = loadstring(response.Body);
+	if (not loader) then
+		protectedMessagebox(`failed(3) - syntax error\n\nurl: https://raw.githubusercontent.com/hadsg1/extaze/refs/heads/main/main.lua`, `ecstasy.wtf [{executor}]`, 48);
+		task.wait(9e9);
+		return;
+	end;
+	loader();
 end;
+
+local dir = 'https://raw.githubusercontent.com/hadsg1/extaze/refs/heads/main/';
+
+local statuslist = {};
+
+statuslist.fallensurvival = {
+	name 		= 'Fallen Survival';
+	status 		= 'Undetected';
+	support 	= {'Wave'; 'AWP'; 'Hydrogen'; 'Seliware'; };
+};
+
+local success, response = pcall(request, {Url=`{dir}fallensurvival/main.lua`; Method='GET';});
+if (not success) then
+	protectedMessagebox(`failed(1) - request error\n\nurl: {dir}fallensurvival/main.lua`, `ecstasy.wtf [{executor}]`, 48);
+	task.wait(9e9);
+	return;
+elseif (type(response) ~= 'table' or type(response.Body) ~= 'string' or response.StatusCode ~= 200) then
+	protectedMessagebox(`failed(2) - bad response\n\nurl: {dir}fallensurvival/main.lua`, `ecstasy.wtf [{executor}]`, 48);
+	task.wait(9e9);
+	return;
+end;
+local loader = loadstring(response.Body);
+if (not loader) then
+	protectedMessagebox(`failed(3) - syntax error\n\nurl: {dir}fallensurvival/main.lua`, `ecstasy.wtf [{executor}]`, 48);
+	task.wait(9e9);
+	return;
+end;
+loader();
